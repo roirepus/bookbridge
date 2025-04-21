@@ -40,16 +40,16 @@ export const adminSideBarLinks = [
   },
 ];
 
-export const FIELD_NAMES = {
-  fullname: "Full name",
+export const fieldNames = {
+  fullName: "Full name",
   email: "Email",
   universityId: "University ID Number",
   password: "Password",
   universityCard: "Upload University ID Card",
 };
 
-export const FIELD_TYPES = {
-  fullname: "text",
+export const fieldTypes = {
+  fullName: "text",
   email: "email",
   universityId: "number",
   password: "password",
