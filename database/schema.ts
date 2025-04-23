@@ -1,5 +1,4 @@
-import { date } from "drizzle-orm/mysql-core";
-import { varchar, uuid, integer, pgTable, text, pgEnum, timestamp } from "drizzle-orm/pg-core";
+import { varchar, uuid, integer, pgTable, text, pgEnum, timestamp, date } from "drizzle-orm/pg-core";
 
 export const statusEnum = pgEnum("status", ["PENDING", "APPROVED", "REJECTED"])
 export const roleEnum = pgEnum("role", ["USER", "ADMIN"])
