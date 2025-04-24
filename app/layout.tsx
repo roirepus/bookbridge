@@ -3,6 +3,8 @@ import "./globals.css";
 import localFont from "next/font/local"
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
+import { auth } from "@/auth";
+import { SessionProvider } from "next-auth/react"
 
 const ibmPlexSans = localFont({
   src: [
@@ -45,19 +47,22 @@ export const metadata: Metadata = {
   description: "BookBridge is a book borrowing library management solution",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: ReactNode;
 }) {
+  const session = await auth()
   return (
     <html lang="en">
-      <body
-        className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased`}
-      >
-        {children}
-        <Toaster />
-      </body>
+      <SessionProvider session={session}>
+        <body
+          className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased`}
+        >
+          {children}
+          <Toaster />
+        </body>
+      </SessionProvider>
     </html>
   );
 }

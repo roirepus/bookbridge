@@ -12,7 +12,9 @@ const {
 } = config
 const authenticator = async () => {
   try {
+    // console.log("here")
     const res = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`)
+    // console.log("not here")
     if (!res.ok) {
       const errorMsg = await res.text()
       throw new Error(`Request failed with status ${res.status}: ${errorMsg}`)
