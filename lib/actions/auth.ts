@@ -6,6 +6,9 @@ import { users } from "@/database/schema";
 import bcrypt from "bcryptjs";
 import { hash } from "bcryptjs";
 import { signIn } from "@/auth";
+import { headers } from "next/headers";
+import ratelimit from "../ratelimit";
+import { redirect } from "next/navigation";
 
 export const signInWithCreds = async (
   params: Pick<AuthCredentials, "email" | "password">) => {
@@ -22,14 +25,20 @@ export const signInWithCreds = async (
         error: result.error,
       }
     };
-    return
-
+    return {
+      success: true,
+    }
   } catch (err) {
     console.log("Sign in Error", err);
   }
 }
 export const signUp = async (params: AuthCredentials) => {
   const { fullName, email, password, universityId, universityCard } = params;
+  const ip = (await headers()).get('x-forwarded-for') || "127.0.0.1";
+  const { success } = await ratelimit.limit(ip);
+  if (!success) {
+    return redirect("/too-fast");
+  }
   const existingUser = await db
     .select()
     .from(users)
